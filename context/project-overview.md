@@ -48,7 +48,7 @@ bank side (bpp). See `knowledge/REFERENCES.md` for what already exists.
 
 ### Out of scope / inherited defaults — **[open] confirm in planning**
 - No automated order execution (recommendations only) — inherited from both neighbors.
-- Long positions only — inherited from both neighbors.
+- **Long positions only, no shorts ever — decided 2026-10-08.**
 - Whether US holdings are in scope (the project name says IL; the held portfolio is mixed) — **[open]**.
 
 ## Success criteria

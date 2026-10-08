@@ -71,6 +71,14 @@ Ask these first in the planning session.
 
 ## Session Notes
 
+- 2026-10-08 (planning session 1): worked backwards from the end result, ignoring the
+  neighbor systems on purpose. First draft saved in `docs/02-plan/first-draft-plan.md`
+  (end result, decisions, logic chain, data list, tensions, open questions). Reuse of
+  bpp/brain is deferred until the requirements are complete. Nothing implemented.
+- 2026-10-08 (revision 2): investor changed the draft. Risk is judged **per ticker** (portfolio
+  view, risk groups, targets and "how much" parked as a next stage); market sentiment is
+  **weekly**; each ticker gets statistical figures and possibly news. Draft plan and
+  `docs/02-plan/process-overview.html` updated. Still nothing implemented.
 - 2026-10-08: the call's Schwab file problems (no fill times, no reference number)
   are what brain Spec 136 already solves — see `knowledge/REFERENCES.md` area 6.
 - bpp's own docs from June say "Israeli only, index-level candles, no per-security

@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Long Stocks IL Process</title>
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --text: #1d2330;
+    --muted: #5d6676;
+    --line: #d9dde5;
+    --n8n: #c2410c;      --n8n-bg: #fff1e6;
+    --db: #0f766e;       --db-bg: #e3f6f3;
+    --ai: #6d28d9;       --ai-bg: #efe8fd;
+    --open: #b45309;     --open-bg: #fef3c7;
+    --ok: #15803d;       --ok-bg: #dcfce7;
+    --bad: #b91c1c;      --bad-bg: #fee2e2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12151b; --card: #1b2029; --text: #e8ebf1; --muted: #9aa3b2; --line: #2d3442;
+      --n8n: #fb923c; --n8n-bg: #3a2414;
+      --db: #2dd4bf;  --db-bg: #11302d;
+      --ai: #a78bfa;  --ai-bg: #2a2142;
+      --open: #fbbf24; --open-bg: #3a2e0f;
+      --ok: #4ade80;  --ok-bg: #12301d;
+      --bad: #f87171; --bad-bg: #3a1717;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 1.9rem; margin: 0 0 4px; }
+  h2 { font-size: 1.3rem; margin: 48px 0 6px; }
+  p.sub { color: var(--muted); margin: 0 0 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .hero { margin-top: 18px; }
+  .hero ul { margin: 8px 0 0; padding-left: 20px; }
+
+  .answers { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 14px; }
+  .answers div { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--bg); }
+  .answers b { display: block; font-size: 1.05rem; }
+  .answers span { color: var(--muted); font-size: .9rem; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0; }
+  .tag { display: inline-block; font-size: .78rem; font-weight: 600; padding: 2px 9px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+  .tag.n8n { color: var(--n8n); background: var(--n8n-bg); }
+  .tag.db  { color: var(--db);  background: var(--db-bg); }
+  .tag.ai  { color: var(--ai);  background: var(--ai-bg); }
+  .tag.open { color: var(--open); background: var(--open-bg); }
+  .tag.ok { color: var(--ok); background: var(--ok-bg); }
+
+  /* flow */
+  .flow { list-style: none; margin: 18px 0 0; padding: 0; }
+  .step { position: relative; display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding-bottom: 22px; }
+  .step:not(:last-child)::before {
+    content: ""; position: absolute; left: 19px; top: 40px; bottom: 0; width: 2px; background: var(--line);
+  }
+  .num {
+    width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+    font-weight: 700; border: 2px solid currentColor; background: var(--card); z-index: 1;
+  }
+  .step.n8n .num { color: var(--n8n); } .step.db .num { color: var(--db); } .step.ai .num { color: var(--ai); }
+  .step .card { padding: 12px 16px; }
+  .step h3 { margin: 0 0 4px; font-size: 1.05rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .step p { margin: 4px 0 0; color: var(--muted); font-size: .95rem; }
+  .step .note { margin-top: 8px; font-size: .88rem; }
+  .branch { margin: 10px 0 0; padding: 8px 12px; border-radius: 8px; background: var(--bg); border: 1px dashed var(--line); font-size: .92rem; }
+
+  .track-head { margin: 28px 0 0; padding: 10px 16px; border-radius: 10px; background: var(--ai-bg); color: var(--ai); font-weight: 700; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; }
+  .track-head.daily { background: var(--db-bg); color: var(--db); }
+  .track-head span { font-weight: 500; font-size: .9rem; }
+
+  /* inputs */
+  .three { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-top: 14px; }
+  .three h3 { margin: 0 0 4px; font-size: 1.02rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .three p { margin: 4px 0; color: var(--muted); font-size: .94rem; }
+  .join { text-align: center; color: var(--muted); font-size: .92rem; margin: 10px 0; }
+  .result { border-left: 4px solid var(--ai); }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+  @media (max-width: 600px) { .two { grid-template-columns: 1fr; } }
+  .two h3 { margin: 0 0 4px; font-size: 1.02rem; }
+  .two p { margin: 4px 0; color: var(--muted); font-size: .94rem; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+  @media (max-width: 700px) { .cols { grid-template-columns: 1fr; } }
+  .cols h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .cols ul { margin: 0; padding-left: 20px; }
+  .cols li { margin: 5px 0; }
+  .decided { border-top: 4px solid var(--ok); }
+  .undecided { border-top: 4px solid var(--open); }
+
+  .parked { border: 1px dashed var(--line); background: transparent; }
+  .parked ul { margin: 8px 0 0; padding-left: 20px; color: var(--muted); }
+  .parked li { margin: 4px 0; }
+
+  .safety { display: grid; gap: 8px; margin-top: 12px; }
+  .safety div { padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); }
+  .safety b { display: block; }
+  footer { margin-top: 48px; color: var(--muted); font-size: .88rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Long Stocks IL: how it works</h1>
+  <p class="sub">The process as decided so far. Draft, revision 2, 2026-10-08. Nothing is built yet.</p>
+
+  <div class="card hero">
+    <b>The idea in one minute</b>
+    <ul>
+      <li>Every day, after the market closes, the system researches <b>each ticker</b> the investor holds.</li>
+      <li>The ticker's <b>own trend</b> decides. Each ticker gets <b>one stance</b> and a <b>reason</b>.</li>
+      <li>Once a week the system also reads the <b>mood of the whole market</b>, as background.</li>
+      <li>No amounts for now. "Add" and "reduce" say <i>what</i> and <i>why</i>, not <i>how much</i>.</li>
+      <li>It only gives advice. It never buys or sells by itself.</li>
+      <li>Long only. No shorts, ever. "Sell all" is the lowest it goes.</li>
+    </ul>
+    <div class="answers">
+      <div><b>Hold</b><span>Do nothing</span></div>
+      <div><b>Add</b><span>Looks good enough to buy more</span></div>
+      <div><b>Reduce</b><span>Looks weak enough to sell some</span></div>
+      <div><b>Sell all</b><span>Close the position</span></div>
+    </div>
+    <p style="margin:12px 0 0;color:var(--muted);font-size:.92rem">
+      "Replace" is not a stance. That choice stays with the investor. The system only needs data for what is already held.
+    </p>
+  </div>
+
+  <h2>1. The two runs</h2>
+  <p class="sub">Three helpers share the work. Each step shows who does it.</p>
+  <div class="legend">
+    <span class="tag n8n">n8n: the conductor</span>
+    <span class="tag db">Supabase: the calculator</span>
+    <span class="tag ai">Claude: the thinker</span>
+    <span class="tag open">open: not decided yet</span>
+  </div>
+
+  <div class="track-head">Once a week: the market mood <span>feeds every ticker's decision that week</span></div>
+  <ol class="flow">
+    <li class="step n8n"><div class="num">W1</div><div class="card">
+      <h3>Weekly timer, fetch index data <span class="tag n8n">n8n</span></h3>
+      <p>A few index charts, plus anything that describes the state of the market.</p>
+      <p class="note"><span class="tag open">open</span> Which day and time. Israeli indexes only, or US too.</p>
+    </div></li>
+    <li class="step db"><div class="num">W2</div><div class="card">
+      <h3>Build the market "summary sheet" <span class="tag db">Supabase</span></h3>
+      <p>All the maths happens here. Claude never does maths and never reads raw charts.</p>
+    </div></li>
+    <li class="step ai"><div class="num">W3</div><div class="card">
+      <h3>Claude writes the market sentiment <span class="tag ai">Claude</span></h3>
+      <p>A short read of the market mood, with the reasons.</p>
+    </div></li>
+    <li class="step db"><div class="num">W4</div><div class="card">
+      <h3>Check the form, save it <span class="tag db">Supabase</span></h3>
+      <p>The saved sentiment is what the daily runs read all week.</p>
+    </div></li>
+  </ol>
+
+  <div class="track-head daily">Every day, after close: each ticker <span>one pass per ticker</span></div>
+  <ol class="flow">
+    <li class="step n8n"><div class="num">1</div><div class="card">
+      <h3>Timer starts, fetch fresh data <span class="tag n8n">n8n</span></h3>
+      <p>Charts and prices for every holding. News too, if we decide to use it.</p>
+      <p class="note"><span class="tag open">open</span> Time of day. Which chart source (it must be tested on the real holdings before we build). News: yes or no.</p>
+    </div></li>
+
+    <li class="step db"><div class="num">2</div><div class="card">
+      <h3>Build one "summary sheet" per ticker <span class="tag db">Supabase</span></h3>
+      <p>Trend, key price levels, and the ticker's statistical figures. All calculated here.</p>
+      <p class="note"><span class="tag open">open</span> Which statistical figures.</p>
+    </div></li>
+
+    <li class="step db"><div class="num">3</div><div class="card">
+      <h3>Scanner: long charts, every ticker <span class="tag db">Supabase</span></h3>
+      <p>Looks at the monthly, weekly and daily charts. Flags a danger zone or an opportunity zone.</p>
+      <div class="branch"><b>Nothing flagged?</b> The ticker keeps yesterday's stance. <span class="tag open">open</span> Or should Claude still review every ticker?</div>
+    </div></li>
+
+    <li class="step db"><div class="num">4</div><div class="card">
+      <h3>Fine-tune: short charts, flagged only <span class="tag db">Supabase</span></h3>
+      <p>Looks at the 4-hour and 1-hour charts to sharpen the timing. Only runs after the scanner flagged something.</p>
+      <p class="note">Funds and bonds have one price a day, so they get the long charts only.</p>
+    </div></li>
+
+    <li class="step ai"><div class="num">5</div><div class="card">
+      <h3>Claude decides, one call per ticker <span class="tag ai">Claude</span></h3>
+      <p>Reads the ticker's summary sheet, this week's market mood, and yesterday's stance with its reason. Answers with a stance and a reason. No amount.</p>
+      <p class="note">The default is "no change". A change needs new evidence.</p>
+    </div></li>
+
+    <li class="step db"><div class="num">6</div><div class="card">
+      <h3>Check the form <span class="tag db">Supabase</span></h3>
+      <p>Checks Claude's answer is in the right form before anything is saved.</p>
+    </div></li>
+
+    <li class="step n8n"><div class="num">7</div><div class="card">
+      <h3>Save to the log, then tell the investor <span class="tag n8n">n8n</span></h3>
+      <p>Each ticker's stance and reason go into the recommendations log. We also save the exact summary sheet, the prompt version and the answer, so any day can be replayed.</p>
+      <p class="note"><span class="tag open">open</span> How the investor is told (Telegram, a report, other).</p>
+    </div></li>
+  </ol>
+
+  <div class="card" style="border-left:4px solid var(--bad)">
+    <b>If something goes wrong</b>
+    <div class="safety">
+      <div><b>Bad answer from Claude</b>Try once more. If still bad, keep yesterday's stance and send an alert.</div>
+      <div><b>Run did not finish by a set time</b>Send an alert.</div>
+      <div><b>Never a half-finished list</b>Either the whole day is published or yesterday stays. Re-running a day replaces that day's record.</div>
+    </div>
+  </div>
+
+  <h2>2. What goes into each ticker's decision</h2>
+  <p class="sub">The ticker's own trend is the main thing. The rest adds to it.</p>
+  <div class="three">
+    <div class="card">
+      <h3>Trend <span class="tag ok">decided</span></h3>
+      <p>Long charts (monthly, weekly, daily) show where the ticker is heading and where its danger and opportunity zones are.</p>
+    </div>
+    <div class="card">
+      <h3>Statistical figures <span class="tag open">open</span></h3>
+      <p>Numbers that describe how the ticker behaves. Added in this revision. Which figures is not chosen yet.</p>
+    </div>
+    <div class="card">
+      <h3>News <span class="tag open">open</span></h3>
+      <p>Possible extra input per ticker. Yes or no is not decided. If yes: from where, and does Claude read it?</p>
+    </div>
+  </div>
+  <div class="join">plus</div>
+  <div class="three">
+    <div class="card">
+      <h3>Weekly market mood <span class="tag ok">decided</span></h3>
+      <p>Background for every ticker. How it changes a stance is not decided yet.</p>
+    </div>
+    <div class="card">
+      <h3>Yesterday's stance <span class="tag ok">decided</span></h3>
+      <p>Keeps the advice steady. No change unless there is new evidence.</p>
+    </div>
+  </div>
+  <div class="join">gives</div>
+  <div class="card result"><b>One stance and one reason for the ticker:</b> hold, add, reduce or sell all.</div>
+  <p class="sub" style="margin-top:10px"><span class="tag open">open</span> How a ticker's risk is measured: from its trend alone, or also from other figures.</p>
+
+  <h2>3. Long charts first, short charts only if flagged</h2>
+  <p class="sub">This split keeps small noise out of the decisions.</p>
+  <div class="two">
+    <div class="card">
+      <h3>Scanner</h3>
+      <p><b>Charts:</b> monthly, weekly, daily</p>
+      <p><b>Job:</b> raise a flag when a ticker enters a danger zone or an opportunity zone.</p>
+      <p><b>Runs:</b> every day on every ticker.</p>
+    </div>
+    <div class="card">
+      <h3>Fine-tune</h3>
+      <p><b>Charts:</b> 4 hours, 1 hour</p>
+      <p><b>Job:</b> sharpen the timing, but only after the scanner flagged something.</p>
+      <p><b>Not for:</b> mutual funds and bonds (one price per day).</p>
+    </div>
+  </div>
+
+  <h2>4. Next stage: the whole portfolio</h2>
+  <p class="sub">Parked on purpose. The single ticker matters more than the portfolio as a whole, so this comes later.</p>
+  <div class="card parked">
+    <b>Not part of this stage</b>
+    <ul>
+      <li>How much to add or reduce, and the money amount.</li>
+      <li>Risk groups (low, medium, high) and which holding belongs to which. The investor will supply the table.</li>
+      <li>Target share per group. The call's example was 22% / 60% / 18%, and the investor said the real table is "a little more complicated".</li>
+      <li>The gap between real and target shares, and a safe zone where the system says nothing.</li>
+      <li>Where cash belongs.</li>
+      <li>Comparing tickers with each other.</li>
+    </ul>
+  </div>
+
+  <h2>5. What is decided, and what is not</h2>
+  <div class="cols">
+    <div class="card decided">
+      <h3>Decided (draft)</h3>
+      <ul>
+        <li>Risk and trend are judged <b>per ticker</b></li>
+        <li>Four stances: hold, add, reduce, sell all</li>
+        <li>No amounts for now</li>
+        <li><b>Long only, no shorts ever</b></li>
+        <li>Tickers checked <b>daily</b></li>
+        <li>Market sentiment read <b>weekly</b></li>
+        <li>Long charts first, short charts only if flagged</li>
+        <li>Advice only, no automatic orders (to confirm)</li>
+        <li>Tools: n8n, Claude API, Supabase</li>
+        <li>All calculations happen in Supabase, before Claude</li>
+        <li>n8n only conducts, it holds no business rules</li>
+        <li>Claude never does maths or reads raw charts</li>
+        <li>Everything is logged and can be replayed</li>
+        <li>Data budget about $50 to $100 a month</li>
+      </ul>
+    </div>
+    <div class="card undecided">
+      <h3>Still open</h3>
+      <ul>
+        <li>Which statistical figures per ticker</li>
+        <li>News per ticker: yes or no</li>
+        <li>How a ticker's risk is measured</li>
+        <li>How the weekly mood changes a stance</li>
+        <li>Claude on every ticker, or flagged ones only</li>
+        <li>Israeli holdings only, or US as well</li>
+        <li>Where the charts come from (test first)</li>
+        <li>Is risk vs reward only price levels</li>
+        <li>What the yes/no gate decides</li>
+        <li>Time of day, weekly day, and how the investor is notified</li>
+        <li>Extra rules to stop stances jumping around</li>
+        <li>Is profit and loss by FIFO needed for the advice</li>
+        <li>Who does what, and what success looks like</li>
+        <li>How this fits with the two older systems (last step)</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    Full text: <code>docs/02-plan/first-draft-plan.md</code>. This page shows the draft only and changes when the plan changes.
+  </footer>
+</div>
+</body>
+</html>

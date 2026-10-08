@@ -118,6 +118,8 @@ The Supabase MCP reaches the shared instance; use it **read-only** here
 - Design rationale → `docs/01-design/design-doc.md`
 - Roadmap & ownership → `docs/02-plan/`
 - Infra: database, deployment, runbooks → `docs/03-infrastructure/`
+  - **Data-source research (TASE prices, what was verified, what was not)** →
+    `docs/03-infrastructure/data-sources.md` — read before researching any data provider again
 - Secrets inventory & access matrix → `docs/04-access/`
 - **THE project status** → `docs/05-execution/status.md` (session-end
   rituals and status updates target this file)

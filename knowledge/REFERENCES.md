@@ -27,7 +27,7 @@ Shared infrastructure: bpp and the brain use the **same Supabase instance** (`oq
 - bpp: `docs/03-infrastructure/candle-provider-research.md` (providers compared, costs, eliminated list); `context/progress-tracker.md` → "Resolved → Candle provider decision (2026-06-25)"; `context/specs/10-candle-push-receiver.md` and `12-candle-expansion.md` (TradingView Pine alert → n8n → `bpp.candles`); `candles/` (raw TradingView exports).
 - Live (`bpp.candles`, 2026-10-08): only **4 index tickers** (TA125, TA35, TA90, TABANK) × 1d/4h/1h, source TradingView. No per-security candles exist anywhere yet. 1h/4h history expires (~7 weeks / ~5 months) unless refreshed.
 - brain: `context/reference/supabase-schema.md` (candles / candles_historical / candles_complete; `build_higher_tf_for_ticker`, `calculate_indicators_candles`); `context/reference/process-flows.md` §3 (candle pipeline); `code_utils/candle_fetch.py`.
-- This repo: `knowledge/2026-10-08-tase-data-research.md` (hybrid TASE daily + sampled 15-min idea — unverified).
+- This repo: `knowledge/2026-10-08-tase-data-research.md` (hybrid TASE daily + sampled 15-min idea). **Checked 2026-10-08, not usable as written** — verified record, TASE 2026 prices and open checks: `docs/03-infrastructure/data-sources.md`.
 
 ### 3–5. Algorithms — yes/no gate, scanner, fine-tune
 - brain (short-term, but the closest worked example of a gate/scanner/refine pipeline): `context/reference/pipeline.md`, `rulebook.md`, `strategy-library.md`; `code_agents/trend_hierarchy.py`, `code_utils/level_calculator.py`, `pattern_detector.py`, `regime.py`.

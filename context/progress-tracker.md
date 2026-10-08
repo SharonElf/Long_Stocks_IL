@@ -38,7 +38,9 @@ user-visible changes, see `docs/05-execution/changelog.md`.
 
 1. In the new session: first `git pull` in `../bank-portfolio-pilot` (local copy is
    3 months behind GitHub), then run `/chaperone`.
-2. Resolve the Open Questions below, then fill the remaining context files
+2. Basic build plan outline is written in `context/build-plan.md` (21 units, 6 decision gates).
+   Start with units 01 and 02 (settle blocking questions, chart source test).
+3. Resolve the Open Questions below, then fill the remaining context files
    (`architecture`, `ui-context`, `code-standards`, `ai-workflow-rules`,
    `ai-safety-rules`) and write `context/build-plan.md`.
 
@@ -53,8 +55,9 @@ Ask these first in the planning session.
 3. **Intraday data reality.** Classic Israeli mutual funds (12 held) and bonds publish a daily
    NAV only, so 4h/1h fine-tuning can only apply to exchange-traded instruments. Is that acceptable?
 4. **Candle source.** The pasted research (free TASE daily history + 15-min sampled hourly
-   candles) is unverified; bpp's own research rated TASE DataHub at ~$350–575/mo, EODHD at
-   $19.99/mo, and flagged the TASE website's internal API as ToS-unclear. Verify before choosing.
+   candles) was **checked 2026-10-08 and does not hold up** (TASE's official daily history is
+   paid, $100–500 a month; the free-website and sampling claims are unconfirmed). Full record in
+   `docs/03-infrastructure/data-sources.md`. Still open: the hands-on test (build plan unit 02).
 5. **Algorithm style.** Deterministic rules (like the brain's gates), Claude-driven (like bpp),
    or a mix? What does "yes/no gate" gate — a trade, a position, a scanner flag?
 6. **Time horizon & decision cadence.** Holding period, how often it runs, how results are
@@ -79,6 +82,11 @@ Ask these first in the planning session.
   view, risk groups, targets and "how much" parked as a next stage); market sentiment is
   **weekly**; each ticker gets statistical figures and possibly news. Draft plan and
   `docs/02-plan/process-overview.html` updated. Still nothing implemented.
+- 2026-10-08 (data foundation): verified the pasted TASE research against TASE's own 2026 price
+  list and other sources. Result: not usable as written; no confirmed 1h/4h source for Israeli
+  securities yet. Recorded in `docs/03-infrastructure/data-sources.md` (claims, prices, what was
+  not checked, where to look, what to do next). The price list PDF is saved in `knowledge/`.
+  Do not redo this research; only the hands-on steps listed there remain.
 - 2026-10-08: the call's Schwab file problems (no fill times, no reference number)
   are what brain Spec 136 already solves — see `knowledge/REFERENCES.md` area 6.
 - bpp's own docs from June say "Israeli only, index-level candles, no per-security

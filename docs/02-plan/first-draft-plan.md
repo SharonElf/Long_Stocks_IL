@@ -148,10 +148,13 @@ Each item gets its own talk: how important it is and what to do with it.
 - **Some things have no price during the day.** Classic mutual funds and bonds publish one price a
   day. They can be checked on monthly, weekly and daily charts, but never on 4-hour or 1-hour charts.
   We treat this as a natural limit. To confirm.
-- **The chart data source is the biggest risk.** The research about the Tel Aviv exchange (TASE) in
-  `knowledge/` has not been checked. Charts built from 15-minute samples are unreliable for things
-  that trade rarely. We need a short test of the data source against the real holdings **before**
-  building anything.
+- **The chart data source is the biggest risk.** The pasted research about the Tel Aviv exchange
+  (TASE) was checked on 2026-10-08 and is **not usable as written**: TASE's official daily history
+  is a paid monthly subscription ($100 a month for current data, $250 for five years back), the
+  "free delayed prices" and "sample every 15 minutes" parts could not be confirmed, and no source
+  is yet confirmed for 4-hour and 1-hour charts of Israeli securities. Full record, prices and
+  what is still unchecked: `docs/03-infrastructure/data-sources.md`. We still need a short hands-on
+  test against the real holdings **before** building anything (build plan unit 02).
 - **Which tickers does Claude look at each day?** Every ticker, or only the flagged ones? The
   scanner checks all of them either way. **[open]**
 
@@ -228,7 +231,7 @@ These came from the progress tracker. The right column shows where we are:
 | 1 | How does this relate to bpp? Own the positions or read them? Replace its signals? | **Postponed** to the last step (look at the older systems). |
 | 2 | Israeli holdings only, or also US? | **[open]**. Also decides currency handling and which indexes. |
 | 3 | Funds and bonds have no price during the day. Is that OK? | Leaning yes. To confirm. |
-| 4 | Where do we get the charts? | **[open]**. Test first, then choose. |
+| 4 | Where do we get the charts? | **[open]**. Desk research done 2026-10-08, see `docs/03-infrastructure/data-sources.md`: the pasted research does not hold up, and the hands-on test (unit 02) comes before choosing. |
 | 5 | Rules, Claude, or a mix? | Partly answered: Claude judges each ticker, the system calculates the inputs. Style of the yes/no gate and the scanner: **[open]**. |
 | 6 | How often, and how is it delivered? | Tickers daily, market mood weekly. Delivery channel (Telegram, a report, other) **[open]**. |
 | 7 | Do we need profit and loss by FIFO? | **Postponed** to the last step. |
@@ -277,6 +280,8 @@ left for later. The first draft had worked out some of them, and they are kept h
 
 - Budget for data: about **$50–100 per month**.
 - Sites already mentioned as data sources: Funder (פאנדר) and Maya (מאיה, the TASE site).
+  Checked: Maya is TASE's announcements feed (company filings, $145 a month), not a price source.
+  Funder has not been checked. See `docs/03-infrastructure/data-sources.md`.
 - We need daily, weekly and monthly charts for each security, especially for Israeli funds and
   ETFs/תעודות סל.
 

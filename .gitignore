@@ -1,0 +1,47 @@
+# --- Secrets — NEVER commit ---
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+.secrets/
+credentials.json
+service-account*.json
+
+# --- Claude Code personal state ---
+.claude/local/
+.claude/.session/
+
+# --- IDE / editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Build artifacts ---
+dist/
+build/
+out/
+*.pyc
+__pycache__/
+*.egg-info/
+node_modules/
+.next/
+.nuxt/
+target/
+
+# --- Logs & local state ---
+*.log
+logs/
+.local/
+tmp/
+.cache/
+
+# --- OS ---
+.DS_Store
+desktop.ini

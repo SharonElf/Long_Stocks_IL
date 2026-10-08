@@ -107,5 +107,5 @@ Fix only this. Do not change anything else.
 ```
 Implementation is complete and verified.
 Mark unit NN complete in context/progress-tracker.md.
-Push branch feat/NN-feature-name to GitHub.
+Commit and push to main.
 ```

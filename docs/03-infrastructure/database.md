@@ -20,7 +20,7 @@ Don't duplicate the schema here — link to it. Source of truth is the code.
 
 - Tool: _e.g., Alembic, Prisma migrate, Flyway_
 - Naming: _e.g., `YYYYMMDD_HHMM_short_description`_
-- **Rule:** every migration must be reviewable in a PR and must be reversible (or explicitly justified as not).
+- **Rule:** every migration must be committed to the repo and must be reversible (or explicitly justified as not).
 - Never run a migration manually in production. Always through CI/CD.
 
 ## Backups

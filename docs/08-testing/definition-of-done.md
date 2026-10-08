@@ -29,9 +29,8 @@ memory. Re-read each file you claim to have updated.
       storage model, invariants, runtime layout — all current?
 - [ ] `context/build-plan.md` — the unit's row reflects actual scope,
       status, and date? Status marker updated?
-- [ ] `docs/01-design/decisions/` — every non-trivial design decision
-      made during this unit has an ADR? One ADR per decision;
-      append-only; filename `NNNN-kebab-name.md`.
+- [ ] `docs/01-design/design-doc.md` — every non-trivial design decision
+      made during this unit is recorded?
 - [ ] `project-map.html` (if the project uses one) — file tree, data
       flow, and unit-status badges still accurate?
 

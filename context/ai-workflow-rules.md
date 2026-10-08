@@ -76,9 +76,8 @@ the scope is too broad — split it.
 
 When making a non-trivial design decision (data model, new
 dependency, system boundary change, anything hard to reverse),
-create an ADR via `/new-adr` instead of leaving it as a
-session note. ADRs live in `docs/01-design/decisions/` and
-are the permanent record.
+record it in `docs/01-design/design-doc.md` instead of
+leaving it as a session note.
 
 ## Protected Files
 
@@ -86,7 +85,6 @@ Do not modify the following unless explicitly instructed:
 
 - [e.g. components/ui/* — generated UI library components]
 - [e.g. Any third-party library internals]
-- `docs/01-design/decisions/` — ADRs are append-only history
 - `docs/07-debug/postmortems/` — postmortems are immutable
   once published
 
@@ -104,7 +102,7 @@ changes:
 
 **Walk the close-unit checklist in `docs/08-testing/definition-of-done.md`
 before starting any new unit. Do not skip it.** The checklist covers
-in-flight updates to architecture, build-plan, ADRs, project-map, spec,
+in-flight updates to architecture, build-plan, project-map, spec,
 changelog, project-specific addenda, and progress-tracker.
 
 In addition, before moving on:

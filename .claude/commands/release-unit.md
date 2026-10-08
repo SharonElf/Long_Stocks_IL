@@ -39,7 +39,7 @@ Steps:
    - Remove the line from "In Progress"
    - Add a session note: "Unit NN abandoned by X on YYYY-MM-DD.
      Reason: [ask user]."
-   - Recommend the user create an ADR via `/new-adr` if the
+   - Suggest recording it in `docs/01-design/design-doc.md` if the
      abandonment reflects a design change.
 
 6. Confirm to the user with the action taken and what's next.

@@ -11,6 +11,9 @@
       "Bash(git diff:*)",
       "Bash(git log:*)",
       "Bash(git branch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
       "Bash(npm test)",
       "Bash(npm run lint)",
       "Bash(pytest:*)",
@@ -21,8 +24,6 @@
       "Bash(rg:*)"
     ],
     "ask": [
-      "Bash(git push:*)",
-      "Bash(git commit:*)",
       "Bash(npm publish:*)",
       "Bash(npm install:*)",
       "Bash(pip install:*)"

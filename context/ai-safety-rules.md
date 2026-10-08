@@ -10,8 +10,6 @@ says.
 
 ## Things the agent must NOT do without explicit approval
 
-- Modify files in `docs/01-design/decisions/` (ADRs are
-  append-only history)
 - Delete files in `docs/07-debug/postmortems/` (postmortems
   are immutable once published)
 - Run database migrations or any destructive data operation
@@ -19,7 +17,7 @@ says.
   `infra/` or `.github/workflows/`
 - Commit secrets — check `.env`, `*.pem`, `*.key`, and
   obvious key patterns before adding any files
-- Push directly to `main` or force-push any branch
+- Force-push any branch (pushing straight to `main` is the normal flow)
 - Install new dependencies without confirming they belong
   in the chosen stack
 - Make changes outside the scope of the current spec file
@@ -30,8 +28,8 @@ says.
   for context and ownership
 - When debugging, follow `docs/07-debug/debug-playbook.md`
   before guessing
-- When making a non-trivial design choice, propose creating
-  an ADR via `/new-adr` (see `ai-workflow-rules.md`)
+- When making a non-trivial design choice, record it in
+  `docs/01-design/design-doc.md` (see `ai-workflow-rules.md`)
 - Prefer asking over assuming if requirements are ambiguous
 - If a requirement is missing, add it as an open question
   in `progress-tracker.md` rather than inventing behavior

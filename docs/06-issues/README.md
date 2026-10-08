@@ -42,7 +42,7 @@ For feature requests:
 - `needs-triage` — fresh, not yet evaluated
 - `blocked` — waiting on something external
 - `in-progress` — actively being worked
-- `needs-review` — PR open, awaiting review
+- `needs-review` — change pushed, awaiting a second look
 
 ## Triage
 

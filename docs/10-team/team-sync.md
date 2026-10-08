@@ -17,8 +17,8 @@ on every session, both update it as they work. Treat it with care.
 
 ### 1. Pull before you start, push when you stop
 
-Every session begins with `git pull`. Every session ends with `git
-push` (or a PR). No exceptions.
+Every session begins with `git pull`. Every session ends with a
+push to `main`. No exceptions.
 
 The reason: the agent reads `context/` and `progress-tracker.md`
 from disk. If your local copy is stale, the agent makes decisions
@@ -42,22 +42,16 @@ update the tracker.
 When you finish (or stop), run `/release-unit NN` to remove the
 lock (or mark complete).
 
-### 3. Feature branches per unit
+### 3. Work on `main`
 
-One branch per unit. Naming: `<initial>/<NN>-<short-name>`.
+No branches and no PRs. Commit small and push often so the other
+teammate's pull is never far behind.
 
-- `a/05-auth-flow`
-- `b/07-canvas-shell`
-
-Open a PR before merging. The other teammate reviews.
-
-### 4. Context file changes go through PR
+### 4. Context file changes
 
 If you update `code-standards.md`, `architecture.md`, or any other
-context file, it goes through a PR like any code change. The other
-teammate reviews — both because the agent's behavior depends on
-these files, and because the change might affect work already in
-progress.
+context file, tell the other teammate — the agent's behavior depends
+on these files, and the change might affect work already in progress.
 
 ### 5. Quick message before starting
 
@@ -75,10 +69,6 @@ send a quick note so the other person knows what happened.
 **Conflict in a context file:** stop and talk. The system depends on
 these files being consistent. Don't auto-resolve.
 
-**Two ADRs with the same number:** rare, but possible if both run
-`/new-adr` simultaneously. Whoever pushes second renames their file
-to the next number and updates the title.
-
 ## When you should NOT lock a unit
 
 - The unit description in `build-plan.md` is vague — fix that first
@@ -88,15 +78,13 @@ to the next number and updates the title.
 
 ## When you should release a unit
 
-- You're done and it's merged → release as complete
+- You're done and it's pushed → release as complete
 - You're stuck and need help → release back to "unlocked" so the
   other person can pick it up
 - You're switching to something else → release back to "unlocked",
   add a session note about where you stopped
 
-## On reviewing each other's PRs
+## Reviewing each other's work
 
-- Read the spec file for the unit before reviewing the code
-- Check the verification checklist was actually run
-- If the diff goes beyond the spec scope, ask why
-- Approve quickly when it matches — bottlenecks compound on small teams
+There is no PR gate. If you want a second pair of eyes, ask the other
+teammate to read the spec and the pushed commits.

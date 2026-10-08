@@ -141,7 +141,7 @@ in the template structure. The mission: pour it into the template
    produced artifacts into `Deliverables/` domains (layer 4). Gathered
    originals stay in `knowledge/`; superseded items → `archive/`,
    absorbed docs archived only after verifying full absorption.
-5. Decisions already made → **retroactive ADRs**.
+5. Decisions already made → record them in `docs/01-design/design-doc.md`.
 6. **File-loss check** against the step-2 baseline; a regeneration/
    verification run must pass in the new layout.
 7. **Baseline commit + push** — the retrofit isn't done until
@@ -184,7 +184,7 @@ shows "Ready to build" or "Unit NN complete".
      addenda). Do not skip it.
    - Update `progress-tracker.md` LAST — mark unit Complete, add to
      Completed list
-   - Ask: "Push the branch `feat/NN-name` now? Or hold?"
+   - Ask: "Commit and push to main now? Or hold?"
 9. If something fails verification: go to Phase 2.
 
 ---
@@ -211,17 +211,12 @@ add a new dependency, OR is changing how data flows.
 
 **Steps:**
 
-1. Confirm: "This sounds like an architectural decision. Should I write
-   an ADR?"
-2. On yes, run the `/new-adr` flow:
-   - Ask for the decision title
-   - Ask for the context (what's the situation, why now?)
-   - Ask what alternatives were considered
-   - Ask what the consequences are (positive, negative, follow-up)
-   - Write `docs/01-design/decisions/NNNN-title.md` with status
-     "Proposed"
-3. Show the ADR. Ask: "Mark as Accepted, leave as Proposed for review,
-   or revise?"
+1. Confirm: "This sounds like an architectural decision. Want it recorded
+   in the design doc?"
+2. On yes, ask for the decision, the alternatives considered, and the
+   consequences, then add it under "Key design choices" in
+   `docs/01-design/design-doc.md`.
+3. Show the entry. Ask: "Any changes?"
 
 ---
 

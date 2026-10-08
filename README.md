@@ -39,7 +39,7 @@ The structure follows the 4-layer model (see
   outside). Seeded at launch — nothing starts from zero.
 - **`archive/`** — superseded items of all kinds, one line each.
 - **`docs/`** — read by humans, mostly outside build sessions.
-  Operational shell: design history (ADRs), status, secrets,
+  Operational shell: design history, status, secrets,
   monitoring, postmortems, team conventions.
 
 ### Build context (agent reads first)
@@ -61,7 +61,7 @@ The structure follows the 4-layer model (see
 | Area | Location |
 |------|----------|
 | Onboarding | [`docs/00-quickstart.md`](docs/00-quickstart.md) |
-| Design rationale & ADRs | [`docs/01-design/`](docs/01-design/) |
+| Design rationale | [`docs/01-design/`](docs/01-design/) |
 | Roadmap & ownership | [`docs/02-plan/`](docs/02-plan/) |
 | Infra: database, deploy, runbooks | [`docs/03-infrastructure/`](docs/03-infrastructure/) |
 | Access & secrets | [`docs/04-access/`](docs/04-access/) |

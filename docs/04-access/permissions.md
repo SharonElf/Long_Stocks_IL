@@ -9,7 +9,7 @@ Review quarterly. Revoke access promptly when someone changes role or leaves.
 | Resource | A | B | C | Notes |
 |----------|---|---|---|-------|
 | GitHub repo | admin | write | write | |
-| GitHub repo settings | ✓ | | | only A can change branch protection |
+| GitHub repo settings | ✓ | | | only A can change repo settings |
 | Cloud account (prod) | admin | read | admin | |
 | Cloud account (staging) | admin | admin | admin | |
 | Production database | read-only | — | read/write | C handles migrations |

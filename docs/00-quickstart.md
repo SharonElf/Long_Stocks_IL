@@ -40,17 +40,15 @@ cp .env.example .env
 
 If a step fails, check `docs/07-debug/known-issues.md` before asking — it may already be documented.
 
-## Your first PR
+## Your first push
 
 A small, safe first change to confirm your workflow is working end-to-end:
 
-1. Create a branch: `git checkout -b <initials>/quickstart-test`
+1. `git pull` to make sure you're current
 2. Add your name to the team table in `CLAUDE.md` (if not already there)
-3. Commit, push, and open a draft PR
-4. Tag a teammate for review
-5. After approval, squash-merge
+3. Commit and push directly to `main`
 
-This walks you through: branching, the PR template, CI, code review, and merge — without touching production code.
+This walks you through the pull-commit-push loop — without touching production code.
 
 ## Common gotchas
 

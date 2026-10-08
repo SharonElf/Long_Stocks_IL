@@ -65,9 +65,9 @@ Ask these first in the planning session.
 9. **People and roles.** The call names Sharon and Einat; who owns what here, and who is `esupport`?
 10. **Success criteria** for the project.
 
-> Non-trivial architectural decisions go in an ADR
-> (`/new-adr`), not here. This section is for open product
-> questions only.
+> Non-trivial architectural decisions go in
+> `docs/01-design/design-doc.md`, not here. This section is for
+> open product questions only.
 
 ## Session Notes
 

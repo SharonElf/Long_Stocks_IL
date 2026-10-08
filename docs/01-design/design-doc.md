@@ -8,8 +8,8 @@ That's the agent-facing source of truth and is updated as the
 build progresses.
 
 This file is human-facing and changes rarely. Update when
-fundamentals change; don't rewrite history — that's what ADRs
-are for (`decisions/`).
+fundamentals change; don't rewrite history — add dated entries under
+"Key design choices".
 
 ## Problem
 
@@ -52,10 +52,10 @@ _A sketch of the major components and how they connect. ASCII diagram or link to
 
 ## Key design choices
 
-_Major decisions and the alternatives considered. Full reasoning goes in ADRs under `decisions/`._
+_Major decisions and the alternatives considered, newest at the bottom. One entry per decision: date, decision, alternatives, consequences._
 
-- _Choice 1 → see [ADR-0001](decisions/0001-example.md)_
-- _Choice 2 → see [ADR-0002](decisions/0002-example.md)_
+- _YYYY-MM-DD — Choice 1: alternatives, why, consequences_
+- _YYYY-MM-DD — Choice 2: alternatives, why, consequences_
 
 ## Open questions
 

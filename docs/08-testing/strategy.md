@@ -21,7 +21,7 @@ How we know the code works before shipping.
 - **Where:** _e.g., `tests/e2e/`_
 - **Tool:** _e.g., Playwright, Cypress_
 - **Run locally:** _e.g., `npm run test:e2e`_
-- **Run in CI:** _on PR + nightly_
+- **Run in CI:** _on push + nightly_
 
 ## What needs tests
 
@@ -38,7 +38,7 @@ How we know the code works before shipping.
 
 ## CI
 
-- **Runs on:** every PR, on merge to `main`, nightly
+- **Runs on:** every push to `main`, nightly
 - **Required to pass before merge:** lint, type-check, unit + integration tests
 - **Runs nightly:** E2E suite + dependency audit
 - **Pipeline file:** _e.g., `.github/workflows/ci.yml`_

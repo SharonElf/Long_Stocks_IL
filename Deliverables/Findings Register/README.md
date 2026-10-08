@@ -20,7 +20,7 @@ worked example (13 findings)._
 ## The rules
 
 - **IDs `F-NN` are stable and append-only** — downstream units, specs,
-  and ADRs cite them; never renumber, never delete (close instead).
+  and the design doc cites them; never renumber, never delete (close instead).
 - **Severity:** `High` / `Medium` / `Low`.
 - **Owner:** `us` / `data team` (or the external owner's name) / `both`.
   The split question: "can we work around it locally?" (us) vs

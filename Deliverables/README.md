@@ -32,12 +32,12 @@ a dictionary built from a studied DB is a deliverable, not
    several workflows) starts inside the domain that produced it,
    flagged "temporary home" in its README. When operational consumers
    arrive, it graduates to a first-class home (a root data shelf or a
-   datastore you own) — decided **by ADR at that unit**, not upfront.
+   datastore you own) — decided **at that unit** (noted in the design doc), not upfront.
 7. **Ops Package — standard optional feature:** when the project has
    real non-developer consumers, ship them a **separate consumer repo**
    (analyst `CLAUDE.md`, exported deliverables, QUICKSTART, feedback
    register that returns as commits; least-privilege read-only access;
-   export workflow in `Code/`). Opened as a unit + ADR. Full pattern:
+   export workflow in `Code/`). Opened as a unit. Full pattern:
    `3-explanations/08-the-ops-package.md` in the template bundle.
 8. Superseded deliverables move to `archive/` in the same commit as
    their replacement.

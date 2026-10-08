@@ -41,8 +41,8 @@ implementation change.
 
 If implementation changes the architecture, scope, or
 standards documented in the context files, update the
-relevant file before continuing. For non-trivial design
-decisions, create an ADR via `/new-adr`.
+relevant file before continuing. Record non-trivial design
+decisions in `docs/01-design/design-doc.md`.
 
 ### Chaperone mode
 
@@ -115,7 +115,7 @@ The Supabase MCP reaches the shared instance; use it **read-only** here
 - **Skills** (auto-invoked capabilities) → project-scoped: `.claude/skills/`
   (none yet; no global skills, so no two-place sync)
 - **Sibling-repo pointers** → `knowledge/REFERENCES.md`
-- Design rationale & ADRs → `docs/01-design/`
+- Design rationale → `docs/01-design/design-doc.md`
 - Roadmap & ownership → `docs/02-plan/`
 - Infra: database, deployment, runbooks → `docs/03-infrastructure/`
 - Secrets inventory & access matrix → `docs/04-access/`
@@ -137,24 +137,21 @@ formatters set in `code-standards.md`.
 
 ## Workflow
 
-- Branch from `main`. Branch name: `<owner-initial>/<short-description>` (e.g., `a/add-rate-limit`)
-- Open a PR early as draft; one teammate reviews before merge
-- CI (lint + tests) must be green before merge
-- Squash on merge — no merge commits on `main`
+- Commit and push directly to `main`. No branches, no PRs, no review step.
 - Update `docs/05-execution/changelog.md` for user-visible changes
 
 ## Definition of done
 
 See `docs/08-testing/definition-of-done.md`. Short version: before
 starting any new unit, walk the close-unit checklist — in-flight
-updates to architecture, build-plan, ADRs, project-map, spec,
+updates to architecture, build-plan, project-map, spec,
 changelog, project addenda, and progress-tracker. Do not skip it.
 
 ## Communication
 
 - Async first. Channel: _#project-name_
 - Weekly sync: _day / time / who runs it_
-- Design decisions captured as ADRs in `docs/01-design/decisions/`
+- Design decisions captured in `docs/01-design/design-doc.md`
 - Status updates: one teammate updates `docs/05-execution/status.md` weekly
 
 ## Safety rules

@@ -19,33 +19,35 @@ How the three of us work together. Bias toward writing things down so we don't r
 | Meeting | When | Duration | Purpose |
 |---------|------|----------|---------|
 | Weekly sync | _Mon 10am_ | 30 min | Status, blockers, decisions |
-| Design review | _ad hoc_ | 60 min | New ADRs, architecture changes |
+| Design review | _ad hoc_ | 60 min | Architecture changes |
 | Retro | _monthly, last Fri_ | 45 min | What's working, what isn't |
 
 Rules:
 - Agenda in writing before the meeting, or it doesn't happen
-- Decisions captured in writing within 24h (ADR, doc update, or issue comment)
+- Decisions captured in writing within 24h (design doc, doc update, or issue comment)
 - If two people can resolve it async, skip the meeting
 
 ## Decisions
 
-- **Reversible & small:** decide in the PR, document inline
+- **Reversible & small:** decide in the commit, document inline
 - **Reversible & medium:** decide async in a thread, summarize in the issue
-- **Irreversible or architectural:** write an ADR (`docs/01-design/decisions/`)
+- **Irreversible or architectural:** record it in `docs/01-design/design-doc.md`
 
 ## Disagreement protocol
 
 1. Both sides write down their position in 3-5 bullets.
 2. Identify what evidence would change either side's mind.
 3. If still stuck after a 30-min sync, escalate to the area owner; if they're a party to the disagreement, pick a tie-breaker beforehand.
-4. The decision goes in an ADR with both positions captured.
+4. The decision goes in the design doc with both positions captured.
 
 ## Code review
 
-- Author: small, focused PRs. < 400 lines of diff when possible.
+No PR gate — everyone pushes to `main`. If you want a review, ask a
+teammate to read the pushed commits.
+
+- Author: small, focused commits. < 400 lines of diff when possible.
 - Reviewer: respond within 1 business day, even if just "looking now"
 - Be explicit about whether a comment is **blocking**, a **suggestion**, or a **nit**
-- Authors don't have to address nits; do have to address blocking comments
 
 ## Working hours
 
